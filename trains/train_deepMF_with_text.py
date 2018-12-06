@@ -193,21 +193,7 @@ def train():
         itr_print=FLAGS.verbose
         itr_save=FLAGS.save
         itr_test=FLAGS.test_itr
-        highest_auc=0
-        highest_precision_50=0
-        highest_precision_100=0
-        highest_precision_150=0
-        highest_precision_200=0
-        highest_precision_250=0
-        highest_precision_300=0
-        highest_recall_50=0
-        highest_recall_100=0
-        highest_recall_150=0
-        highest_recall_200=0
-        highest_recall_250=0
-        highest_recall_300=0
-        highest_map=0
-        highest_ndcg=0
+
         for itr in xrange(iterations):
             users, pos_items, neg_items = dataset.next_BPR_batch(FLAGS.batch_size)
             loss,test = model.step(sess, users, pos_items, neg_items,True)
@@ -229,51 +215,22 @@ def train():
             #test
             if(itr%itr_test==0 or itr==iterations-1):
                 auc,precision_50,precision_100,precision_150,precision_200,precision_250,precision_300,map,ndcg,recall_50,recall_100,recall_150,recall_200,recall_250,recall_300=evaluate(model,sess,dataset)
-                if auc>highest_auc:
-                    highest_auc=auc
-                if precision_50>highest_precision_50:
-                    highest_precision_50=precision_50
-                if precision_100>highest_precision_100:
-                    highest_precision_100=precision_100
-                if precision_150>highest_precision_150:
-                    highest_precision_150=precision_150
-                if precision_200>highest_precision_200:
-                    highest_precision_200=precision_200
-                if precision_250>highest_precision_250:
-                    highest_precision_250=precision_250
-                if precision_300>highest_precision_300:
-                    highest_precision_300=precision_300
-                if map>highest_map:
-                    highest_map=map
-                if ndcg>highest_ndcg:
-                    highest_ndcg=ndcg
-                if recall_50>highest_recall_50:
-                    highest_recall_50=recall_50
-                if recall_100>highest_recall_100:
-                    highest_recall_100=recall_100
-                if recall_150>highest_recall_150:
-                    highest_recall_150=recall_150
-                if recall_200>highest_recall_200:
-                    highest_recall_200=recall_200
-                if recall_250>highest_recall_250:
-                    highest_recall_250=recall_250
-                if recall_300>highest_recall_300:
-                    highest_recall_300=recall_300
-                print 'Epoch:'+str(dataset.get_epoch())+' Iteration:'+str(itr)+' MAP:'+str(map)+' Highest MAP:'+str(highest_map)
-                print 'Epoch:'+str(dataset.get_epoch())+' Iteration:'+str(itr)+' Precision 50:'+str(precision_50)+' Highest Precision 50:'+str(highest_precision_50)
-                print 'Epoch:'+str(dataset.get_epoch())+' Iteration:'+str(itr)+' Precision 100:'+str(precision_100)+' Highest Precision 100:'+str(highest_precision_100)
-                print 'Epoch:'+str(dataset.get_epoch())+' Iteration:'+str(itr)+' Precision 150:'+str(precision_150)+' Highest Precision 150:'+str(highest_precision_150)
-                print 'Epoch:'+str(dataset.get_epoch())+' Iteration:'+str(itr)+' Precision 200:'+str(precision_200)+' Highest Precision 200:'+str(highest_precision_200)
-                print 'Epoch:'+str(dataset.get_epoch())+' Iteration:'+str(itr)+' Precision 250:'+str(precision_250)+' Highest Precision 250:'+str(highest_precision_250)
-                print 'Epoch:'+str(dataset.get_epoch())+' Iteration:'+str(itr)+' Precision 300:'+str(precision_300)+' Highest Precision 300:'+str(highest_precision_300)
-                print 'Epoch:'+str(dataset.get_epoch())+' Iteration:'+str(itr)+' NDCG:'+str(ndcg)+' Highest NDCG:'+str(highest_ndcg)
-                print 'Epoch:'+str(dataset.get_epoch())+' Iteration:'+str(itr)+' AUC:'+str(auc)+' Highest AUC:'+str(highest_auc)
-                print 'Epoch:'+str(dataset.get_epoch())+' Iteration:'+str(itr)+' Recall 50:'+str(recall_50)+' Highest Recall 50:'+str(highest_recall_50)
-                print 'Epoch:'+str(dataset.get_epoch())+' Iteration:'+str(itr)+' Recall 100:'+str(recall_100)+' Highest Recall 100:'+str(highest_recall_100)
-                print 'Epoch:'+str(dataset.get_epoch())+' Iteration:'+str(itr)+' Recall 150:'+str(recall_150)+' Highest Recall 150:'+str(highest_recall_150)
-                print 'Epoch:'+str(dataset.get_epoch())+' Iteration:'+str(itr)+' Recall 200:'+str(recall_200)+' Highest Recall 200:'+str(highest_recall_200)
-                print 'Epoch:'+str(dataset.get_epoch())+' Iteration:'+str(itr)+' Recall 250:'+str(recall_250)+' Highest Recall 250:'+str(highest_recall_250)
-                print 'Epoch:'+str(dataset.get_epoch())+' Iteration:'+str(itr)+' Recall 300:'+str(recall_300)+' Highest Recall 300:'+str(highest_recall_300)
+                
+                print 'Epoch:'+str(dataset.get_epoch())+' Iteration:'+str(itr)+' MAP:'+str(map)
+                print 'Epoch:'+str(dataset.get_epoch())+' Iteration:'+str(itr)+' Precision 50:'+str(precision_50)
+                print 'Epoch:'+str(dataset.get_epoch())+' Iteration:'+str(itr)+' Precision 100:'+str(precision_100)
+                print 'Epoch:'+str(dataset.get_epoch())+' Iteration:'+str(itr)+' Precision 150:'+str(precision_150)
+                print 'Epoch:'+str(dataset.get_epoch())+' Iteration:'+str(itr)+' Precision 200:'+str(precision_200)
+                print 'Epoch:'+str(dataset.get_epoch())+' Iteration:'+str(itr)+' Precision 250:'+str(precision_250)
+                print 'Epoch:'+str(dataset.get_epoch())+' Iteration:'+str(itr)+' Precision 300:'+str(precision_300)
+                print 'Epoch:'+str(dataset.get_epoch())+' Iteration:'+str(itr)+' NDCG:'+str(ndcg)
+                print 'Epoch:'+str(dataset.get_epoch())+' Iteration:'+str(itr)+' AUC:'+str(auc)
+                print 'Epoch:'+str(dataset.get_epoch())+' Iteration:'+str(itr)+' Recall 50:'+str(recall_50)
+                print 'Epoch:'+str(dataset.get_epoch())+' Iteration:'+str(itr)+' Recall 100:'+str(recall_100)
+                print 'Epoch:'+str(dataset.get_epoch())+' Iteration:'+str(itr)+' Recall 150:'+str(recall_150)
+                print 'Epoch:'+str(dataset.get_epoch())+' Iteration:'+str(itr)+' Recall 200:'+str(recall_200)
+                print 'Epoch:'+str(dataset.get_epoch())+' Iteration:'+str(itr)+' Recall 250:'+str(recall_250)
+                print 'Epoch:'+str(dataset.get_epoch())+' Iteration:'+str(itr)+' Recall 300:'+str(recall_300)
                 sys.stdout.flush()
     #writer.close()
 def main(_):
